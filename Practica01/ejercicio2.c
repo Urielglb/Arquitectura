@@ -35,13 +35,8 @@ bool is_flag(char *flag)
     return flag[0]=='-';
 }
 
-FILE parse_args(char *argv[])
-{
-    FILE *file;
-    char *name = argv[1];
-    file = fopen(name, "r");
-    if(file==NULL) wtf("Ocurrio un error al leer el archivo");
-    return *file;
+char* get_flag(char *flag){
+    return strtok(flag, "-");
 }
 
 report* create_report_from_file(FILE *f)
@@ -68,15 +63,45 @@ report* create_report_from_file(FILE *f)
     return rep;
 }
 
+int tot_cicles(report* rep)
+{
+    int tot_cicles;
+    for(int alfa=0; alfa<rep->linesc; alfa++)
+        tot_cicles+=rep->lines[alfa].cicles*rep->lines[alfa].n;
+    return tot_cicles;
+}
+
+float calc_from_cicles(report* rep)
+{
+    return ((float) tot_cicles(rep))*rep->duration;
+}
+
+float calc_from_frecuency(report* rep)
+{
+    return ((float) tot_cicles(rep))/rep->duration;
+}
+
+float calculate_from_report(report* rep)
+{
+    if(rep->time)
+        return calc_from_cicles(rep);
+    else
+        return calc_from_frecuency(rep);
+}
+
 void calculate_from_file(char* name){
-    
+    FILE *file;
+    file = fopen(name, "r");
+    if(file==NULL) wtf("Ocurrio un error al leer el archivo");
+    report* rep = create_report_from_file(file);
+    int result = calculate_from_report(rep);
+    printf("result: %d\n", result);
 }
 
 int main(int argc, char *argv[])
 {
     check_args(argc);
-    FILE file = parse_args(argv);
-    report* rep = create_report_from_file(&file);
+    calculate_from_file(argv[1]);
     return 0;
 }
 
