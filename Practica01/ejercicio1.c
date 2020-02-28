@@ -2,6 +2,55 @@
 #include <string.h>
 #include <stdlib.h>
 
+int hib(int computadoras,float medias_geometricas[])
+{
+    int mejor = 0;
+    float mayor = medias_geometricas[0];
+    for (int i = 0; i < computadoras; i++)
+    {
+        if(medias_geometricas[i]>mayor)
+        {
+            mejor = i;
+        }
+    }
+    return mejor;
+}
+
+int lib(int computadoras,float medias_geometricas[])
+{
+    int mejor = 0;
+    float menor = medias_geometricas[0];
+    for (int i = 0; i < computadoras; i++)
+    {
+        if(medias_geometricas[i]<menor)
+        {
+            mejor = i;
+        }
+    }
+    return mejor;
+}
+
+void muestra_resultados(int computadoras,float medias_aritmeticas[],int mejor_computadora,int rendimiento){
+    printf("%d\n",mejor_computadora);
+    if (rendimiento)
+    {
+        for (int i = 0; i < computadoras; i++)
+        {
+            float veces_mejor = medias_aritmeticas[mejor_computadora]/medias_aritmeticas[i];
+            printf("%f\n",veces_mejor);
+        }
+        
+    }
+    else
+    {
+        for (int i = 0; i < computadoras; i++)
+        {
+            float veces_mejor = medias_aritmeticas[i]/medias_aritmeticas[mejor_computadora];
+            printf("%f\n",veces_mejor);
+        }
+    }
+    
+}
 
 int main(int argc, char const *argv[])
 {
@@ -23,20 +72,18 @@ int main(int argc, char const *argv[])
     }
     nombre = argv[2];
     FILE *datos = fopen(nombre,"r");
-    int auxcomputadoras[1];
-    int auxpruebas[1];
-    fscanf(datos,"%i",auxcomputadoras);
-    fscanf(datos,"%i",auxpruebas);
-    int computadoras = auxcomputadoras[0];
-    int pruebas = auxpruebas[0];
+    int pruebas ;
+    int computadoras ;
+    fscanf(datos,"%i",&computadoras);
+    fscanf(datos,"%i",&pruebas);
     float resultados[computadoras][pruebas];
     for(int i = 0;i<computadoras;i++)
     {
         for(int j = 0;j<pruebas;j++)
         {
-            float resultado[1];
-            fscanf(datos,"%f",resultado);
-            resultados[i][j] = resultado[0];
+            float resultado;
+            fscanf(datos,"%f",&resultado);
+            resultados[i][j] = resultado;
         }
     }
     float medias_aritmeticas[computadoras];
@@ -67,14 +114,14 @@ int main(int argc, char const *argv[])
             media /= pruebas;
             medias_geometricas[i] = media;
         }
-           
-    //calculo_mejor_computadora(resultados,rendimiento);
+    int mejor_computadora = 0;
+    if(rendimiento){
+        mejor_computadora = hib(computadoras,medias_geometricas);
+    }
+    else
+    {
+       mejor_computadora = lib(computadoras,medias_geometricas);
+    }
+    muestra_resultados(computadoras,medias_aritmeticas,mejor_computadora,rendimiento);
     return 0;
 }
-
-
-
-/*void calculo_mejor_computadora(int resultados[][],int rendimiento)
-{
-    int media_aritmetica = media_aritmetica(resultados);
-}*/
