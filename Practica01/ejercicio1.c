@@ -66,6 +66,11 @@ int main(int argc, char const *argv[])
         printf("Solo me debes dar 2 argumentos");
         return 0;
     }
+    if(strcmp(argv[1],"-R")!=0 && strcmp(argv[1],"-T")!=0)
+    {
+        printf("Solo puedo recibir las banderas -R y -T\n");
+        return 0;
+    }
     if(strcmp(argv[1],"-R")==0)
     {
         rendimiento = 1;
