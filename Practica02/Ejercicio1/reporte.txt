@@ -1,0 +1,36 @@
+Tomamos las computadoras 5,10,15 y 20 con las pruebas:
+REDIS/LPOP
+REDIS/SADD
+REDIS/LPUSH
+REDIS/GET
+REDIS/SET
+GZIP Compression
+DCRAW
+FLAC Audio Encoding
+GnuPG
+Timed MAFFT Alignment
+Se pasaron al programa en el siguiente orden para rendimiento:
+REDIS/LPOP  REDIS/SADD REDIS/LPUSH REDIS/GET REDIS/SET
+De la siguiente para tiempo:
+GZIP Compression DCRAW FLAC Audio Encoding GnuPG Timed MAFFT Alignment
+Y de esta manera las computadoras:
+5
+10
+15
+20
+Preguntas
+1.-Identifica cuales pruebas miden el tiempo de respuesta y cuales miden
+el rendimiento.
+R:Todas las pruebas REDIS son las de rendimiento pues estaban en pasos por minuto y las demás son de tiemo pues estaban en segundos
+2.-¿Qué computadora tiene mejor rendimiento?
+R: La computadora 15
+3.-¿Por qué factor supera la mejor computadora a la peor?
+R:1.490224
+4.-¿Qué computadora tiene mejor tiempo de respuesta?
+R:La computadora 15
+5.-¿Por qué factor supera la mejor computadora a la peor?
+R:1.283767
+6.-De entre los atributos de cada máquina comparada, ¿cuáles resultan
+determinantes en la pérdida o ganancia de desempeño?
+R:Por lo que pude observar el número de núcleos y a velocidad de estos aunque en general mas núcleos con menos velocidad vencían
+a menos núcleos con mas velocidad
