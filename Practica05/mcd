@@ -5,6 +5,7 @@ n2:	.word 4 #Segundo numero a comparar
 .text
 	lw $t0 n1
 	lw $t1 n2
+	lw $t2
 
 while:	
 	beqz $t1 end
