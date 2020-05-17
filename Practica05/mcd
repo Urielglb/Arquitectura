@@ -1,19 +1,18 @@
 .data
-n1:	.word 2 #Primer numero a comparar
-n2:	.word 4 #Segundo numero a comparar
+n1:	.word 16 #Primer numero a comparar
+n2:	.word 32 #Segundo numero a comparar
 
 .text
-	lw $t0 n1
-	lw $t1 n2
-	lw $t2
+	lw $t0 n1 #Registro que guardará n1, este registro tendrá el resultado al terminar el algoritmo
+	lw $t1 n2 #Regustro que guardará n2
 
-while:	
-	beqz $t1 end
-	lw $t2,-100($t1)
-	div $t0 $t1
-	mfhi $t1
-	lw $t0,-100($t2)
-	j while
+while:	#ciclo para sacar mcd
+	beqz $t1 end #si n2 = 0 termina el ciclo
+	la $t2 ($t1) #Guardamos en un registro distinto a n2
+	div $t0 $t1  #n1/n2
+	mfhi $t1 #Se guarda en el registro de n2 el residuo de n1/n2
+	la $t0 ($t2) #Se guarda en el registro de n1 a n2, de esta manera el nuevo n1 es el antiguo n2 y n2 es el residuo de el antiguo n1 dividido entre el antiguo n2  
+	j while #Se regresa al ciclo
 	
 
 end:
