@@ -1,0 +1,18 @@
+.data
+n1:	.word 2 #Primer numero a comparar
+n2:	.word 4 #Segundo numero a comparar
+
+.text
+	lw $t0 n1
+	lw $t1 n2
+
+while:	
+	beqz $t1 end
+	lw $t2,-100($t1)
+	div $t0 $t1
+	mfhi $t1
+	lw $t0,-100($t2)
+	j while
+	
+
+end:
