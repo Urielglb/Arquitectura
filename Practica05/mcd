@@ -1,10 +1,30 @@
 .data
 n1:	.word 16 #Primer numero a comparar
 n2:	.word 32 #Segundo numero a comparar
+in1:	.asciiz "Ingresa el primer numero\n"
+in2:	.asciiz "Ingresa el segundo numero\n"
 
 .text
-	lw $t0 n1 #Registro que guardará n1, este registro tendrá el resultado al terminar el algoritmo
-	lw $t1 n2 #Regustro que guardará n2
+.macro read_int(%in)
+	li $v0, 5
+	syscall
+	move %in $v0
+.end_macro 
+.macro print_int(%out)
+	li $v0 1
+	move $a0, %out  
+    	syscall
+.end_macro
+.macro print_str(%r)
+	li $v0 4
+	la $a0, %r 
+    	syscall
+.end_macro
+	
+	print_str(in1)
+	read_int($t0) #Registro que guardará n1, este registro tendrá el resultado al terminar el algoritmo
+	print_str(in2)
+	read_int($t1) #Regustro que guardará n2
 
 while:	#ciclo para sacar mcd
 	beqz $t1 end #si n2 = 0 termina el ciclo
@@ -16,3 +36,4 @@ while:	#ciclo para sacar mcd
 	
 
 end:
+	print_int($t0)

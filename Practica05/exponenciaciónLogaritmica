@@ -4,10 +4,30 @@ n:	.word 5 #potencia a la que se elevará
 r:	.word 1 #resultado
 d:	.word 2 #Numero para poder dividir entre dos
 
+in1: 	.asciiz "ingresa n\n"
+in2: 	.asciiz "ingresa x\n"
 
 .text 
-	lw $t0 n #Registro que guardará n
-	lw $t1 x #Rehistro que guardará  x
+.macro read_int(%in)
+	li $v0, 5
+	syscall
+	move %in $v0
+.end_macro 
+.macro print_int(%out)
+	li $v0 1
+	move $a0, %out  
+    	syscall
+.end_macro
+.macro print_str(%r)
+	li $v0 4
+	la $a0, %r 
+    	syscall
+.end_macro
+	
+	print_str(in1)
+	read_int($t0) #Registro que guardará n
+	print_str(in2)
+	read_int($t1) #Rehistro que guardará  x
 	lw $t2 r #Registro que guardará el resultado
 	lw $t3 d #Registro para dividir entre 2
 	
@@ -28,3 +48,5 @@ segundo: #Segundo camino que se seguira si n%2 = 1 y que solo tiene de diferente
 
 end:	
 	mul $t2 $t2 $t1 #Se hace la ultima operación al resultado que es multiplicarlo por x
+	print_int($t2)
+	

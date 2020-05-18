@@ -20,7 +20,7 @@
 
 .macro print_str(%r)
 	li $v0 4
-	la $a0, %r  # load desired value into argument register $a0, using pseudo-op
+	la $a0, %r 
     	syscall
 .end_macro
 
