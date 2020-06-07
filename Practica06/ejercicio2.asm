@@ -17,6 +17,9 @@ in1: 	.asciiz "ingrese el número\n"
 
 #imprime en la terminal el entero guardado en %rs
 .macro print_int(%rs)
+	li $v0 1
+	move $a0, %out  
+    	syscall
 .end_macro
 
 #preambulo de foo como rutina invocada
