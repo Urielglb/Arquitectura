@@ -17,17 +17,21 @@ in1: 	.asciiz "ingrese el número\n"
 
 #imprime en la terminal el entero guardado en %rs
 .macro print_int(%rs)
+	move $t1 %rs
 	li $v0 1
-	move $a0, %out  
-    	syscall
+	move $a0, $t1  
 .end_macro
 
 #preambulo de foo como rutina invocada
 .macro pre_foo0()
+	subi	$sp $sp 32 	# paso1: reservar espacio
+	sw	$ra 16($sp)	# paso3: guardar direccion de retorno
+	sw	$fp 20($sp)	# paso4: guardar fp
 .end_macro
 
 #conclusion de foo como rutina invodada
 .macro con_foo0()
+	syscall
 .end_macro
 
 #preambulo para invocar foo(n-1)
@@ -48,7 +52,7 @@ in1: 	.asciiz "ingrese el número\n"
 
 #invocacion a la subrutina foo
 .macro inv_foo()
-	foo:
+	j foo
 .end_macro
 
 .text
