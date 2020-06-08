@@ -36,6 +36,10 @@ in1: 	.asciiz "ingrese el número\n"
 
 #preambulo para invocar foo(n-1)
 .macro pre_foo1()
+	subi	$sp $sp 32 	# paso1: reservar espacio
+	subi 	$a0 $a0 1
+	sw	$ra 16($sp)	# paso3: guardar direccion de retorno
+	sw	$fp 20($sp)	# paso4: guardar fp
 .end_macro
 
 #conclusion de la invocacion de foo(n-1)
