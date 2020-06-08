@@ -1,6 +1,9 @@
 .data
-	arr: .space 32
+	arr: .space 64
 	n:	.asciiz "\n"
+	nArr: .asciiz "ingrese el numero de elementos en el arreglo\n"
+	ingArr: .asciiz "ingrese los elementos del arreglo\n"
+	fin: .asciiz "numeros ordenados"
 .text
 
 #lee int
@@ -95,10 +98,15 @@ print_int:
 
 main:
 
+print_str(nArr)
 read_int($s0) # leemos el tamaño del arreglo
 
+print_str(ingArr)
 for($t0, 0, $s0, read_int)
 
+
+print_str(n)
+print_str(fin)
 for($t0, 0, $s0, outer_loop) # iniciamos el  for loop con el outer_loop de cuerpo
 for($t0, 0, $s0, print_int)
 	
